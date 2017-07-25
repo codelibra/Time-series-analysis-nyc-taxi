@@ -5,6 +5,11 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+/*
+ * Input - weekly data grid, long, lat, freq
+ * Output - stl
+ */
+
 public class Map2 extends Mapper<LongWritable, Text, Text,Text> {
  @Override
  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
