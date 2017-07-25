@@ -1,0 +1,113 @@
+import java.io.IOException;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+import com.github.servicenow.ds.stats.stl.SeasonalTrendLoess;
+import java.util.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+
+public class Reduce2 extends Reducer<Text, Text, Text, Text> {
+ 
+public class ObjectComparator implements Comparator{
+
+    public int compare(Object obj1, Object obj2) {
+        String str1 = (String)obj1;
+        String str2 = (String)obj2;
+        Integer year1 = Integer.parseInt(str1.split(",")[0].split("_")[1]);
+        Integer week1 =  Integer.parseInt(str1.split(",")[0].split("_")[0]);
+        Integer year2 = Integer.parseInt(str2.split(",")[0].split("_")[1]);
+        Integer week2 =  Integer.parseInt(str2.split(",")[0].split("_")[0]);
+        if(year1.equals(year2)) return week1.compareTo(week2);
+        else return year1.compareTo(year2);
+   }
+}
+
+ @Override
+ public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException{  
+     ArrayList<String> valuesList = new ArrayList<String>();
+     for(Text value : values){
+        valuesList.add(value.toString());
+     }
+
+     Collections.sort(valuesList, new ObjectComparator());
+     
+     //Appending zero frequwncy for non-existing weeks   
+     ArrayList<String> fixedValuesList = new ArrayList<String>();
+     try{
+     String format = "yyyy-MM-dd";
+     SimpleDateFormat df = new SimpleDateFormat(format);
+     Date startDate = df.parse("2009-01-01");
+     Calendar calendar = Calendar.getInstance();
+     calendar.setTime(startDate);
+
+     int loop=0;
+     for(int i=0;i<valuesList.size();){
+          String[] aggregatedGridId = valuesList.get(i).split(",")[0].split("_");
+	  Integer currentWeek = Integer.parseInt(aggregatedGridId[0]);
+          Integer currentYear = Integer.parseInt(aggregatedGridId[1]);
+          String gridId = aggregatedGridId[2];
+          String longitude = valuesList.get(i).split(",")[1];
+          String latitude  = valuesList.get(i).split(",")[2];
+          
+          int week =  calendar.get(Calendar.WEEK_OF_YEAR);
+          int year =  calendar.get(Calendar.YEAR); 
+          loop++;  
+	  if(currentYear<2009 || currentYear>2016)
+	  {
+		System.out.println("Wrong year!! " + "FIle year " + currentYear + " loop year " + year + " file week " + currentWeek + " loop week "+ week + " gridId " + grid);
+   		break;
+	  }
+          if(loop>52*9)
+	  {
+		System.out.println("Too many loops " + "FIle year " + currentYear + " loop year " + year + " file week " + currentWeek + " loop week "+ week);
+  	 	break;
+	  }
+          if(currentWeek == week && currentYear==year)
+          {
+	         fixedValuesList.add(valuesList.get(i)); 
+                 i++;
+	  }
+	  else if(currentYear!= year || currentWeek != week)
+	  {
+		fixedValuesList.add(week + "_" + year + "_" + gridId + "," + longitude + "," + latitude + "," + "0");	 
+	  }
+	  
+          calendar.add(Calendar.DAY_OF_YEAR, 7);
+     }
+     }catch(Exception e){}
+     
+     if(fixedValuesList.size()<2*52)
+     {
+         //for(int i=0;i<fixedValuesList.size();i++)
+	 System.out.println(key.toString() + " " + fixedValuesList.size());
+         return;
+     }     
+/*
+     double[] freqData = new double[fixedValuesList.size()];
+     for(int i=0;i<fixedValuesList.size();i++)
+     {
+     	freqData[i] = Double.parseDouble(fixedValuesList.get(i).split(",")[3]);
+     }
+
+     SeasonalTrendLoess.Builder builder = new SeasonalTrendLoess.Builder();
+     SeasonalTrendLoess smoother = builder.
+            setPeriodLength(52).    // Data has a period of 12
+            setSeasonalWidth(7).   // Monthly data smoothed over 35 years
+            setNonRobust().         // Not expecting outliers, so no robustness iterations
+            buildSmoother(freqData);
+
+     SeasonalTrendLoess.Decomposition stl = smoother.decompose();
+     double[] seasonal = stl.getSeasonal();
+     double[] trend = stl.getTrend();
+     double[] residual = stl.getResidual();
+
+     for(int i=0;i<fixedValuesList.size();++i){
+          String output = fixedValuesList.get(i) +"," + seasonal[i]+","+trend[i]+","+residual[i];
+          context.write(key, new Text(output));
+     }
+*/	
+ }
+}
