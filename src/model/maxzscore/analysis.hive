@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS weekly_zscore;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS weekly_zscore (
+ID STRING,
+Longitude DOUBLE,
+Latitude DOUBLE,
+freq DOUBLE,
+residual DOUBLE,
+zscore DOUBLE)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/user/at3577/taxiAnalyse/timeSeries/weekly-zscore/';
+
+Select * from weekly_zscore order by weekly_zscore.zscore desc limit 100;
+Select * from weekly_zscore order by weekly_zscore.zscore limit 100;
+Select substr(weekly_zscore.id,12),count(*) from weekly_zscore group by substr(weekly_zscore.id,12);
+select * from weekly_zscore where weekly_zscore.latitude = 40.686499999999825 and weekly_zscore.longitude=-73.9802499999997;
+
+select * from weekly_zscore where weekly_zscore.id like '2014-05-26%' order by weekly_zscore.zscore desc limit 100;
+

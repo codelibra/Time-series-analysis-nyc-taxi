@@ -5,7 +5,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class Map2 extends Mapper<LongWritable, Text, Text,Text> {
+public class AnnualZScoreCalculatorMapper extends Mapper<LongWritable, Text, Text,Text> {
  @Override
  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
@@ -18,7 +18,7 @@ public class Map2 extends Mapper<LongWritable, Text, Text,Text> {
    String newKey = splitKey[0] + "_" + splitKey[2]; 
  
   
-   String outputValue = splitValues[0] + "," + splitValues[1] + "," + splitValues[2] + "," + splitValues[6]; 
+   String outputValue = splitValues[0] + "," + splitValues[1] + "," + splitValues[2] + "," + splitValues[3] + "," + splitValues[6]; 
 
 
    context.write(new Text(newKey), new Text(outputValue));

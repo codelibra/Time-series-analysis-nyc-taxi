@@ -9,14 +9,18 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Reduce2 extends Reducer<Text, Text, Text, Text> {
+public class AnnualStlReducer extends Reducer<Text, Text, Text, Text> {
 
     @Override
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         try {
             Map<String, Double> exisitingValuesMap = new HashMap<>();
+            String longitude="";
+	    String latitude="";
             for (Text value : values) {
                 String[] splitValues = value.toString().split(",");
+		longitude = splitValues[1];
+		latitude  = splitValues[2];
                 exisitingValuesMap.put(splitValues[0], Double.parseDouble(splitValues[3]));
             }
 
@@ -68,7 +72,7 @@ public class Reduce2 extends Reducer<Text, Text, Text, Text> {
             double[] residual = stl.getResidual();
 
             for (int i = 0; i < aggregatedGridIdList.size(); ++i) {
-                String output = aggregatedGridIdList.get(i) + "," + seasonal[i] + "," + trend[i] + "," + residual[i];
+                String output = aggregatedGridIdList.get(i) + "," + longitude + "," + latitude + "," + freqData[i] + "," +seasonal[i] + "," + trend[i] + "," + residual[i];
                 context.write(key, new Text(output));
             }
         } catch (Exception e) {

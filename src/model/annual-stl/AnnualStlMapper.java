@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Mapper;
  * Output - stl
  */
 
-public class Map2 extends Mapper<LongWritable, Text, Text,Text> {
+public class AnnualStlMapper extends Mapper<LongWritable, Text, Text,Text> {
  @Override
  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 

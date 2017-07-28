@@ -1,0 +1,6 @@
+javac -classpath `yarn classpath` -d . AnnualStlMapper.java
+javac -classpath `yarn classpath`:stl-decomp-4j-1.0.2-SNAPSHOT.jar -d . AnnualStlReducer.java
+javac -classpath `yarn classpath`:. -d . AnnualStlDriver.java
+jar -cvf annual-stl.jar *.class
+hdfs dfs -rm -r /user/at3577/taxiAnalyse/timeSeries/annual-stl
+hadoop jar annual-stl.jar AnnualStlDriver -libjars /home/at3577/time-series-analysis-nyc-taxi/taxiAnalyse/src/model/stl/stl-decomp-4j-1.0.2-SNAPSHOT.jar /user/at3577/taxiAnalyse/timeSeries/annual-periodicity/part-r-00000 /user/at3577/taxiAnalyse/timeSeries/annual-stl
