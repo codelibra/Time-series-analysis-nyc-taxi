@@ -6,7 +6,8 @@ function initialize(day) {
 
     var mapOptions = {
 	zoom: 12,
-	center: NY
+	center: NY,
+	mapTypeId: 'satellite'
     };
 	
     map = new google.maps.Map(document.getElementById('map-canvas'),
