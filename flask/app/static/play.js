@@ -6,7 +6,7 @@ $( function() {
     	console.log("play" + day);
     	day = day + 1;
     	var taxiData = [];
-	
+		
 		$.getJSON('/realtime/' + day,
             function(data) {
               
@@ -22,8 +22,9 @@ $( function() {
 					radius: 12
 				});
 
+
 				// placing the heatmap on the map
-				heatmap.setMap(map);	
+				heatmap.setMap(googleMap.myMap);	
 		  });
     }
 

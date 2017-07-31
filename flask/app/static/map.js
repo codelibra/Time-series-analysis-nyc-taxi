@@ -1,3 +1,7 @@
+var googleMap = {
+	map : null
+};
+
 function initialize(day) {
 	// Render the markers for cab locations on Google Maps
 	var NY = new google.maps.LatLng(40.730610, -73.935242);
@@ -12,7 +16,8 @@ function initialize(day) {
 	
     map = new google.maps.Map(document.getElementById('map-canvas'),
 			      mapOptions);
-	
+
+	googleMap.myMap = map;
 	var taxiData = [];
 	
 	$.getJSON('/realtime/' + day,
