@@ -3,6 +3,7 @@ from app import app
 import json
 import time
 from flask import jsonify, render_template, request
+import pandas as pd
 
 @app.route('/')
 @app.route('/index')
@@ -24,3 +25,8 @@ def downloaddata():
 @app.route('/aboutme')
 def aboutme():
     return render_template('aboutme.html')
+
+@app.route('/realtime')
+def realtime():
+	dataframe = pd.read_csv('/home/at3577/workspace/taxi/flask/out.csv')
+	return dataframe.to_json(orient='records')

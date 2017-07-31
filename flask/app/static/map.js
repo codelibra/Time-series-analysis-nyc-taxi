@@ -1,28 +1,39 @@
 // Render the markers for cab locations on Google Maps
-var SF = new google.maps.LatLng(37.7577,-122.4376);
+var NY = new google.maps.LatLng(40.730610, -73.935242);
 var markers = [];
 var map;
 function initialize() {
     var mapOptions = {
 	zoom: 12,
-	center: SF
+	center: NY
     };
+	
     map = new google.maps.Map(document.getElementById('map-canvas'),
 			      mapOptions);
+	
+	var taxiData = [];
+	
+	 $.getJSON('/realtime',
+            function(data) {
+              
+			  for(var i=0;i<data.length;i++)
+			  {
+				    taxiData.push(new google.maps.LatLng(data[i]['weekly_zscore.latitude'],data[i]['weekly_zscore.longitude']));
+			  }	  
+			   var pointArray = new google.maps.MVCArray(taxiData);
+	
+				// what data for the heatmap and how to display it
+				heatmap = new google.maps.visualization.HeatmapLayer({
+					data: pointArray,
+					radius: 12
+				});
+
+				// placing the heatmap on the map
+				heatmap.setMap(map);	
+		  });
+    
 }
-function update_values() {
-    $.getJSON('/realtime',
-              function(data) {
-                  cabs = data.cabs
-		  console.log(cabs)
-		  clearMarkers();
-		  for (var i = 0; i < cabs.length; i = i + 1) {
-	              addMarker(new google.maps.LatLng(cabs[i].lat, cabs[i].lng));
-		  }
-            });
-    window.setTimeout(update_values, 5000);
-}
-update_values();
+
 function drop(lat, lng) {
     point  = new google.maps.LatLng(lat,lng);
     clearMarkers();
@@ -40,4 +51,5 @@ function clearMarkers() {
     }
     markers = [];
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
