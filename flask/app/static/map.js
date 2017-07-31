@@ -14,10 +14,15 @@ function initialize(day) {
 	mapTypeId: 'satellite'
     };
 	
-    map = new google.maps.Map(document.getElementById('map-canvas'),
+	if(googleMap.myMap==null){
+ 	   map = new google.maps.Map(document.getElementById('map-canvas'),
 			      mapOptions);
+	}
 
-	googleMap.myMap = map;
+	else{
+		map = googleMap.myMap;
+	}
+
 	var taxiData = [];
 	
 	$.getJSON('/realtime/' + day,
