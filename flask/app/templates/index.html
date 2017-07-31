@@ -7,15 +7,19 @@
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
   <link rel="stylesheet" type="text/css" href="static/style.css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- modernizr enables HTML5 elements and feature detects -->
   <script type="text/javascript" src="static/modernizr-1.5.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="static/map.js"></script>
+  <script src="static/datepicker.js"></script>
 </head>
 
 <body>
+
 <div id="main">
   <header>
     <div id="strapline">
@@ -26,28 +30,19 @@
   </header>    
   
   <div id="site_content">
+  <p>Analysis Date <input type="text" id="datepicker"></p>
     <div class="content_item">
       </div><!--close content-->
     <div id="map-container">
        <div id="map-canvas"></div>
     </div>
-    <div id="content">
-      <div class="content_item">
-    	<p style="text-align:justify">The above map displays a simulated real time stream of geolocation data from 500 cabs in San Francisco. The stream is being played back in real time, based on historical geolocation data. A stream processing framework (Apache Storm)
-           is used for transforming streaming data such that only the unoccupied cabs are displayed on the map. The goal of this app is to showcase
-           a framework enabling a user to view real time cab status in order to catch an empty cab in their neighborhood by utilizing the locational 
-           data being constantly updated on the map. Further information available on the subsequent tabs and github.</p>
-      </div>
-
 	<div class="content_item">
 	 <footer>
 	  <span style="float: left; color:#FFF">
-	    &nbsp&nbsp&nbsp&nbsp Preetika Kulshrestha
+	    &nbsp&nbsp&nbspAkshay Trivedi, Shivendra Panicker
 	  </span> 
 	  <span style="float: right; color:#FFF">
-	    <a href="mailto:preetika.kulshrestha@gmail.com">Email</a>     |
-	    <a href="https://github.com/PreetikaKuls">Github</a>     |
-            <a href="https://www.linkedin.com/in/preetikakulshrestha">Linkedin</a>&nbsp&nbsp&nbsp&nbsp
+	    <a href="https://github.com/codelibra/time-series-analysis-nyc-taxi">Github</a>
 	  </span>
 	</footer>
 	</div>

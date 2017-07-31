@@ -26,7 +26,7 @@ def downloaddata():
 def aboutme():
     return render_template('aboutme.html')
 
-@app.route('/realtime')
-def realtime():
-	dataframe = pd.read_csv('/home/at3577/workspace/taxi/flask/out.csv')
+@app.route('/realtime/<day_of_year>')
+def realtime(day_of_year):
+	dataframe = pd.read_csv('/Users/shiv/.bin/time-series-analysis-nyc-taxi/flask/out' + day_of_year +'.csv')
 	return dataframe.to_json(orient='records')
