@@ -1,0 +1,6 @@
+ javac -classpath `yarn classpath` -d . WeeklyZScoreCalculatorMapper.java
+javac -classpath `yarn classpath` -d . WeeklyZScoreCalculatorReducer.java
+javac -classpath `yarn classpath`:. -d . WeeklyZScoreCalculatorDriver.java
+jar -cvf weekly-zscore.jar *.class
+hdfs dfs -rm -r /user/at3577/taxiAnalyse/timeSeries/weekly-zscore
+hadoop jar weekly-zscore.jar WeeklyZScoreCalculatorDriver /user/at3577/taxiAnalyse/timeSeries/weekly-stl/part-r-00000 /user/at3577/taxiAnalyse/timeSeries/weekly-zscore/
