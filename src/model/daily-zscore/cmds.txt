@@ -1,0 +1,6 @@
+javac -classpath `yarn classpath` -d . DailyZScoreCalculatorMapper.java
+javac -classpath `yarn classpath` -d . DailyZScoreCalculatorReducer.java
+javac -classpath `yarn classpath`:. -d . DailyZScoreCalculatorDriver.java
+jar -cvf daily-zscore.jar *.class
+hdfs dfs -rm -r /user/at3577/taxiAnalyse/timeSeries/daily-zscore
+hadoop jar daily-zscore.jar DailyZScoreCalculatorDriver /user/at3577/taxiAnalyse/timeSeries/daily-stl/part-r-00000 /user/at3577/taxiAnalyse/timeSeries/daily-zscore/

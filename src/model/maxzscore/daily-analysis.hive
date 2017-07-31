@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS daily_zscore;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS daily_zscore (
+ID STRING,
+Longitude DOUBLE,
+Latitude DOUBLE,
+freq DOUBLE,
+residual DOUBLE,
+zscore DOUBLE)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/user/at3577/taxiAnalyse/timeSeries/daily-zscore/';
+
+select daily_zscore.latitude, daily_zscore.longitude, daily_zscore.freq, daily_zscore.residual, daily_zscore.zscore from daily_zscore where daily_zscore.id like '2014-11-27%' order by daily_zscore.zscore desc limit 100;
+

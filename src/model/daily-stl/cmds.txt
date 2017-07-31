@@ -1,0 +1,6 @@
+javac -classpath `yarn classpath` -d . WeeklyStlMapper.java
+javac -classpath `yarn classpath`:stl-decomp-4j-1.0.2-SNAPSHOT.jar -d . WeeklyStlReducer.java
+javac -classpath `yarn classpath`:. -d . WeeklyStlDriver.java
+jar -cvf weekly-stl.jar *.class
+hdfs dfs -rm -r /user/at3577/taxiAnalyse/timeSeries/weekly-stl
+hadoop jar weekly-stl.jar WeeklyStlDriver -libjars /home/at3577/time-series-analysis-nyc-taxi/taxiAnalyse/src/model/weekly-stl/stl-decomp-4j-1.0.2-SNAPSHOT.jar /user/at3577/taxiAnalyse/timeSeries/weekly-periodicity/part-r-00000 /user/at3577/taxiAnalyse/timeSeries/weekly-stl

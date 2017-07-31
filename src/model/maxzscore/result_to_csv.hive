@@ -1,0 +1,2 @@
+beeline -u 'jdbc:hive2://babar.es.its.nyu.edu:10000/' -n at3577 -p aT@031192 --outputformat=csv2 -e 'select weekly_zscore.latitude, weekly_zscore.longitude, weekly_zscore.freq, weekly_zscore.residual, weekly_zscore.zscore from weekly_zscore where weekly_zscore.id like "2014-11-27%" order by weekly_zscore.zscore desc limit 100;' > out.csv
+
