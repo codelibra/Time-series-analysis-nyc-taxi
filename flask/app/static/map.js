@@ -25,6 +25,7 @@ function initialize(day) {
 
 	var taxiData = [];
 	
+	if(isNan(day)) day = 1;
 	$.getJSON('/realtime/' + day,
             function(data) {
               
