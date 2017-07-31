@@ -28,5 +28,5 @@ def aboutme():
 
 @app.route('/realtime/<day_of_year>')
 def realtime(day_of_year):
-	dataframe = pd.read_csv('/Users/shiv/.bin/time-series-analysis-nyc-taxi/flask/out' + day_of_year +'.csv')
+	dataframe = pd.read_csv('/home/at3577/time-series-analysis-nyc-taxi/flask/output/out' + str(day_of_year) +'.csv')
 	return dataframe.to_json(orient='records')
