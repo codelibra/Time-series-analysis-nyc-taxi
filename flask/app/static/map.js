@@ -5,9 +5,9 @@ function initialize(day) {
 	var map;
 
     var mapOptions = {
-	zoom: 12,
+	zoom: 13,
 	center: NY,
-	mapTypeId: 'satellite'
+        mapTypeId: google.maps.MapTypeId.HYBRID
     };
     map = new google.maps.Map(document.getElementById('map-canvas'),
 			      mapOptions);
@@ -20,7 +20,7 @@ function initialize(day) {
               
 			  for(var i=0;i<data.length;i++)
 			  {
-				    taxiData.push(new google.maps.LatLng(data[i]['weekly_zscore.latitude'],data[i]['weekly_zscore.longitude']));
+				    taxiData.push(new google.maps.LatLng(data[i]['latitude'],data[i]['longitude']));
 			  }	  
 			   var pointArray = new google.maps.MVCArray(taxiData);
 	

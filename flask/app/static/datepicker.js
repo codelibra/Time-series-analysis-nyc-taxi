@@ -15,5 +15,5 @@ $( function() {
     		initialize(day);
     	}
     });
-
+   $( "#datepicker" ).datepicker( "setDate", new Date(2015,0,01));
 } );
