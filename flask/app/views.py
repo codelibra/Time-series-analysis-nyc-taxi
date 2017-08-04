@@ -1,10 +1,10 @@
 # Create views for the html page
-from app import app
 import json
 import time
-from flask import jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request
 import pandas as pd
 
+app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
