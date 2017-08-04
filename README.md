@@ -1,6 +1,10 @@
 # Time series analysis of new york taxi data
-1. Utilizing new york taxi pickup and drop off data for finding Night Spots to hang out.
-2. We perform time series analysis of taxi data, by breaking it into seasonal, trend and random.
-3. We divide complete new york state into 20x20 grids and finding maximum anamoly within a specified time range.
-4. We try to detect annual, weekly, monthly and daily events which could be out of order using modified z-score.
+## Utilizing taxi pickup and drop off data to find Interesting Spots!
+1. Perform time series analysis of taxi data.
+2. Divide complete new york state into 20x20 grids.
+3. Generate time series annual, weekly and daily for each 20x20 grid point.
+4. Decompose into seasonal, treand and residual. Utilize the residual part to get anomalous events.
+5. Detect statistically most significant events using modified z-score as a metric.
+6. Visualize all points on heat map over NYC google maps.
+
 ![Screenshot](capture.png)
