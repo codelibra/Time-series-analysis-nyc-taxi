@@ -3,3 +3,4 @@
 2. We perform time series analysis of taxi data, by breaking it into seasonal, trend and random.
 3. We divide complete new york state into 20x20 grids and finding maximum anamoly within a specified time range.
 4. We try to detect annual, weekly, monthly and daily events which could be out of order using modified z-score.
+![Screenshot] capture.png
