@@ -6,5 +6,6 @@
 4. Decompose into seasonal, treand and residual. Utilize the residual part to get anomalous events.
 5. Detect statistically most significant events using modified z-score as a metric.
 6. Visualize all points on heat map over NYC google maps.
+7. [View Demo](http://linserv1.cims.nyu.edu:45673)
 
 ![Screenshot](capture.png)
